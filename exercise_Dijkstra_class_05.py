@@ -73,7 +73,7 @@ class Graph:
 if __name__ == "__main__":
     G = Graph()
 
-    nodes_with_attributes = {f"V{i}": {'weight': sys.maxsize, 'parent': -1} for i in range(6)} # creat dict containing nodes with default attributes
+    nodes_with_attributes = {f"V{i}": {'weight': sys.maxsize, 'parent': -1} for i in range(6)} # create dict containing nodes with default attributes
     G.graph.add_nodes_from(nodes_with_attributes.items()) # add nodes from dict
     # add edges
     G.graph.add_edge("V0", "V1", weight=10)
