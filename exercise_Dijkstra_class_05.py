@@ -16,7 +16,7 @@ class Graph:
         opened = [node for node in self.graph.nodes]
 
         while initial_node in opened: # while U node is open
-            print(f"U: {initial_node},\t\t Weight: {self.graph.nodes[initial_node]['weight']},\t Parent: {self.graph.nodes[initial_node]['parent']}")
+            print(f"U: {initial_node},\t\t Parent: {self.graph.nodes[initial_node]['parent']},\t Weight: {self.graph.nodes[initial_node]['weight']}")
             for neighbour in self.graph.neighbors(initial_node): # For each V neighbour of node
                 if neighbour in opened: # If V neighbour is open
                     edge_weight = self.graph.get_edge_data(initial_node, neighbour)["weight"]
@@ -25,8 +25,8 @@ class Graph:
                     neighbour_weight = self.graph.nodes[neighbour]["weight"]
                     if new_weight < neighbour_weight: # if the weight of the new path is less heavy than the V neighbour's weight (previous path)
                         self.graph.nodes[neighbour].update({"parent": initial_node, "weight": new_weight}) # update the V neighbour's parent and weight based on the new shortest path
-                    print(f" - V: {neighbour},\t Weight: {self.graph.nodes[neighbour]['weight']},\t Parent: {self.graph.nodes[neighbour]['parent']}")
-            print(f"U: {initial_node} CLOSED,\t Weight: {self.graph.nodes[initial_node]['weight']},\t Parent: {self.graph.nodes[initial_node]['parent']}\n")
+                    print(f" - V: {neighbour},\t Parent: {self.graph.nodes[neighbour]['parent']},\t Weight: {self.graph.nodes[neighbour]['weight']}")
+            print(f"U: {initial_node} CLOSED,\t Parent: {self.graph.nodes[initial_node]['parent']},\t Weight: {self.graph.nodes[initial_node]['weight']}\n")
             opened.remove(initial_node) # close node since it doesn't have any neighbours remaining
 
             for node in opened: # for every open node 
