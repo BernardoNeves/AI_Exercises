@@ -5,29 +5,19 @@
     @date 2023-09-27
 """
 
-import random
+import random, networkx as nx, matplotlib.pyplot as plt
+
 
 class Graph:
     def __init__(self):
-        self.graph = {
-            "V0": ["V1", "V7"],
-            "V1": ["V4", "V6"],
-            "V2": ["V0"],
-            "V3": ["V4", "V5"],
-            "V4": [],
-            "V5": [],
-            "V6": [],
-            "V7": ["V2"],
-            "V8": ["V1"],
-            "V9": ["V3", "V5", "V8"],
-        }  # Graph Initialization
+        self.graph = nx.DiGraph()  # Graph Initialization
 
     def dfs(self, node, visited):
         if node not in visited:  # If node hasn't been visited
             print(" -> " + node, end="")
             visited.append(node)  # Mark node as visited
-            for neighbor in self.graph[node]:  # For each neighbour of node
-                self.dfs(neighbor, visited)  # Recursevly visit unvisited neighbour
+            for neighbour in self.graph[node]:
+                self.dfs(neighbour, visited)  # Recursevly visit unvisited neighbour
 
     def bfs(self, initial_node, visited):
         queue = []  # Queue initialization
@@ -37,14 +27,33 @@ class Graph:
         while queue:  # As long as the queue is not empty
             node = queue.pop(0)  # Remove the 1st node from the queue
             print(" -> " + node, end="")
-            for neighbor in self.graph[node]:  # For each neighbour of node
-                if neighbor not in visited:  # If neighbour is not visited
-                    visited.append(neighbor)  # Mark neighbour as visited
-                    queue.append(neighbor)  # Put neighbour at the end of the queue
-                    print(" - *" + neighbor + "* ", end="")
+            for neighbour in self.graph[node]:  # For each neighbour of node
+                if neighbour not in visited:  # If neighbour is not visited
+                    visited.append(neighbour)  # Mark neighbour as visited
+                    queue.append(neighbour)  # Put neighbour at the end of the queue
+                    print(" - *" + neighbour + "* ", end="")
 
     def get_unvisited_nodes(self, visited):
-        return list(set(self.graph.keys()) - set(visited))  # return unvisited nodes
+        return list(self.graph.nodes - visited)  # return unvisited nodes
+
+    def visualize_graph(self):
+        G = nx.DiGraph(self.graph)
+
+        pos = nx.spring_layout(G, k=1, seed=2) # Define a layout for the nodes
+
+        nx.draw(
+            G,
+            pos,
+            with_labels=True,
+            node_size=800,
+            node_color="skyblue",
+            font_size=12,
+            font_color="black",
+        ) # Draw nodes
+
+        nx.draw_networkx_edges(G, pos, width=1, edge_color="black") # Draw edges
+        
+        plt.show() # Display the graph
 
     def run(self):
         visited = []  # Visited list initialization
@@ -71,5 +80,16 @@ class Graph:
 
 
 if __name__ == "__main__":
-    graph = Graph()
-    graph.run()
+    G = Graph()
+
+    for i in range(10):
+        G.graph.add_node(f"V{i}") # add i nodes
+
+    nodes = list(G.graph.nodes) + [None]
+    for node in G.graph.nodes: # for every node 
+        random_node = random.choice(nodes)
+        if random_node and random_node != node: # avoid self edges and None
+            G.graph.add_edge(node, random_node) # add edge between nodes
+
+    G.run() # run
+    G.visualize_graph() # draw graph
