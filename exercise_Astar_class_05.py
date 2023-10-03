@@ -63,7 +63,7 @@ class Graph:
         print("\n> A*:")
         self.astar(initial_node, goal_node) # run A*
 
-        parent = "V5"
+        parent = goal_node
         path = []
 
         while parent != -1: # while node has a parent
@@ -93,7 +93,7 @@ if __name__ == "__main__":
 
     initial_node = "V0" # set our initial node
     G.graph.nodes["V0"]["weight"] = 0 # reset initial node weight to 0 since it's the start
-    goal_node = "V5"
+    goal_node = "V5" # set our goal node
 
-    G.run(initial_node, goal_node)
+    G.run(initial_node, goal_node) # runtime
     G.visualize_graph() # draw graph

@@ -28,7 +28,7 @@ class Graph:
                     print(f" - V: {neighbour},\t Parent: {self.graph.nodes[neighbour]['parent']},\t Weight: {self.graph.nodes[neighbour]['weight']}")
             print(f"U: {initial_node} CLOSED,\t Parent: {self.graph.nodes[initial_node]['parent']},\t Weight: {self.graph.nodes[initial_node]['weight']}\n")
             opened.remove(initial_node) # close node since it doesn't have any neighbours remaining
-
+            
             for node in opened: # for every open node 
                 node_weight = self.graph.nodes[node]["weight"]
                 initial_node_weight = self.graph.nodes[initial_node]["weight"]
@@ -54,11 +54,11 @@ class Graph:
         
         plt.show() # Display the graph
 
-    def run(self, initial_node):
+    def run(self, initial_node, goal_node):
         print("\n> Dijkstra:")
         self.dijkstra(initial_node) # run Dijkstra
 
-        parent = "V5"
+        parent = goal_node
         path = []
 
         while parent != -1: # while node has a parent
@@ -88,6 +88,8 @@ if __name__ == "__main__":
 
     initial_node = "V0" # set our initial node
     G.graph.nodes["V0"]["weight"] = 0 # reset initial node weight to 0 since it's the start
+    goal_node = "V5" # set our goal node
 
-    G.run(initial_node) # runtime
+    
+    G.run(initial_node, goal_node) # runtime
     G.visualize_graph() # draw graph
