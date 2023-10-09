@@ -1,7 +1,7 @@
 """
-    @file exercise_DFS-BFS_class-04.py
+    @file exercise_Astar_class-04.py
     @author Bernardo Neves (a23494@alunos.ipca.pt)
-    @brief Depth First Search (DFS) and Breadth First Search (BFS) implementation
+    @brief Astar implementation
     @date 2023-09-27
 """
 
