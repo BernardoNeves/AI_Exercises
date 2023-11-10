@@ -2,7 +2,7 @@
     @file exercise_Genetic_class_09.py
     @author Bernardo Neves (a23494@alunos.ipca.pt)
     @brief Genetic Algorithm implementation
-    @date 2023-11-10
+    @date 2023-11-09
 """
 
 import random as rd

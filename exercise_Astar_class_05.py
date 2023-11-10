@@ -1,11 +1,15 @@
 """
-    @file exercise_Astar_class-04.py
+    @file exercise_Astar_class_05.py
     @author Bernardo Neves (a23494@alunos.ipca.pt)
     @brief Astar implementation
-    @date 2023-09-27
+    @date 2023-10-01
 """
 
-import random, sys, networkx as nx, matplotlib.pyplot as plt
+import sys
+
+import matplotlib.pyplot as plt
+import networkx as nx
+
 
 class Graph:
     def __init__(self):

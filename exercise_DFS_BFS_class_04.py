@@ -1,11 +1,14 @@
 """
-    @file exercise_DFS-BFS_class-04.py
+    @file exercise_DFS-BFS_class_04.py
     @author Bernardo Neves (a23494@alunos.ipca.pt)
     @brief Depth First Search (DFS) and Breadth First Search (BFS) implementation
     @date 2023-09-27
 """
 
-import random, networkx as nx, matplotlib.pyplot as plt
+import random
+
+import matplotlib.pyplot as plt
+import networkx as nx
 
 
 class Graph:

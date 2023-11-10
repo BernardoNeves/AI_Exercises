@@ -1,11 +1,14 @@
 """
-    @file exercise_Dijkstra_class-04.py
+    @file exercise_Dijkstra_class_05.py
     @author Bernardo Neves (a23494@alunos.ipca.pt)
     @brief Dijkstra implementation
-    @date 2023-09-27
+    @date 2023-10-01
 """
 
-import random, sys, networkx as nx, matplotlib.pyplot as plt
+import sys
+
+import matplotlib.pyplot as plt
+import networkx as nx
 
 
 class Graph:

@@ -1,12 +1,12 @@
 """
-    @file exercise_Decision_Tree_class-04.py
+    @file exercise_Decision_Tree_class_07.py
     @author Bernardo Neves (a23494@alunos.ipca.pt)
     @brief Decision Tree implementation
     @date 2023-09-27
 """
-from sklearn.datasets import load_iris
-from sklearn import tree
 import graphviz
+from sklearn import tree
+from sklearn.datasets import load_iris
 
 
 class Decision_Tree:
