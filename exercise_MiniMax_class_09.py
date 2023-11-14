@@ -42,7 +42,7 @@ def get_score(board: list, player: str) -> int or None:
     return score
 
 
-def minimax(board: list, player: str) -> int or None:
+def minimax(board: list, player: str, prune: bool) -> int or None:
     max_score = -np.inf
     best_move = None
 
@@ -50,7 +50,7 @@ def minimax(board: list, player: str) -> int or None:
         for col in range(len(board[row])):
             if board[row][col] == " ":
                 board[row][col] = player
-                score = min_value(board, player)
+                score = min_value(board, player, -np.inf, np.inf, prune)
                 board[row][col] = " "
 
                 if score > max_score:
@@ -59,7 +59,7 @@ def minimax(board: list, player: str) -> int or None:
     return best_move
 
 
-def max_value(board: list, player: str) -> int:
+def max_value(board: list, player: str, alpha: int, beta: int, prune: bool) -> int:
     score = get_score(board, player)
     if score is not None:
         return score
@@ -69,12 +69,17 @@ def max_value(board: list, player: str) -> int:
         for col in range(len(board[row])):
             if board[row][col] == " ":
                 board[row][col] = player
-                max_score = max(max_score, min_value(board, player))
+                max_score = max(max_score, min_value(board, player, alpha, beta, prune))
+                if prune:
+                    if max_score >= beta:
+                        board[row][col] = " "
+                        return max_score
+                    alpha = max(alpha, max_score)
                 board[row][col] = " "
     return max_score
 
 
-def min_value(board: list, player: str) -> int:
+def min_value(board: list, player: str, alpha: int, beta: int, prune: bool) -> int:
     score = get_score(board, player)
     if score is not None:
         return score
@@ -84,12 +89,17 @@ def min_value(board: list, player: str) -> int:
         for col in range(len(board[row])):
             if board[row][col] == " ":
                 board[row][col] = "X" if player == "O" else "O"
-                min_score = min(min_score, max_value(board, player))
+                min_score = min(min_score, max_value(board, player, alpha, beta, prune))
+                if prune:
+                    if min_score <= alpha:
+                        board[row][col] = " "
+                        return min_score
+                    beta = min(beta, min_score)
                 board[row][col] = " "
     return min_score
 
 
-def test_all_first_moves() -> str:
+def test_all_first_moves(prune: bool) -> str:
     for r in range(3):
         for c in range(3):
             row, col = r, c
@@ -104,22 +114,29 @@ def test_all_first_moves() -> str:
                     break
 
                 player = "X" if player == "O" else "O"
-                row, col = minimax(board, player) 
-                
+                row, col = minimax(board, player, prune)
+
             if winner:
                 return winner
             print("\n\tTied the Game\n")
-            input("Press Enter to continue...")
     return None
 
 
 def main():
-    result = test_all_first_moves()
-    if result is None:
-        print("Success, all tests passed!")
-    else:
-        print(f"Failure, {result} Won the Game")
+    while True:
+        key = input("Menu\nM - Test without pruning\nP - Test with pruning\nQ - Quit\n\n").upper()
+        if key in ["M", "P"]:
+            prune = key == "P"
+            result = test_all_first_moves(prune)
+            if result is None:
+                print("Success, " + "Minimax Pruning Alpha Beta"if prune else "Minimax" + "Passed all Tests")
+            else:
+                print(f"Failure, {result} Won the Game")
+        elif key == "Q":
+            break
+        else:
+            print("Invalid Input")
 
-    
+
 if __name__ == "__main__":
     main()
